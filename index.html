@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown 文档站</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Markdown 文档站</h1>
+        <div id="directory">
+            <h2>目录</h2>
+            <div id="main-categories">
+                <!-- 主类别将动态生成 -->
+            </div>
+            <div id="sub-categories" style="display: none;">
+                <h2>子类别</h2>
+                <ul id="sub-list">
+                    <!-- 子类别将动态生成 -->
+                </ul>
+                <button id="back-to-main" style="display: none;">返回主类别</button>
+            </div>
+        </div>
+        <div id="markdown-content" style="display: none;">
+            <!-- 动态加载并显示Markdown内容 -->
+        </div>
+        <button id="back-button" style="display: none;">返回目录</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Markdown 文档站. 版权所有.</p>
+        <p>联系方式: <a href="mailto:info@example.com">info@example.com</a></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
