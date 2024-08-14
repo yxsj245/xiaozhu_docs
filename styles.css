@@ -327,3 +327,33 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+
+/* 确保图片不会超出容器 */
+
+#markdown-content img {
+    max-width: 100%;
+    /* 图片宽度不超过其容器的宽度 */
+    height: auto;
+    /* 高度自动调整以保持比例 */
+    display: block;
+    /* 避免图片下方的间距 */
+    margin: 0 auto;
+    /* 图片居中对齐 */
+    border-radius: 15px;
+    /* 四个角做半圆形效果，调整圆角的大小 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* 添加平滑过渡效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* 默认阴影效果 */
+}
+
+
+/* 鼠标悬停时的效果 */
+
+#markdown-content img:hover {
+    transform: translateY(-5px);
+    /* 微微上浮 5px */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    /* 增强阴影效果 */
+}
