@@ -11,4 +11,3 @@
 ```javascript
 console.log('Hello, Markdown!');
 ```
-![替代文字](https://imgos.cn/2024/08/14/66bc52cde7b89.jpg "可选标题")
