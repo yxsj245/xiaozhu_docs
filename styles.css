@@ -2,17 +2,15 @@ html,
 body {
     height: 100%;
     margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.8;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
     background: url('https://imgos.cn/2024/08/14/66bc52cde7b89.jpg') no-repeat center center fixed;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -21,13 +19,21 @@ body {
     margin: 50px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.8);
-    /* 半透明背景 */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    /* 毛玻璃效果 */
     -webkit-backdrop-filter: blur(10px);
-    /* Safari 支持 */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.container.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.container.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h1,
@@ -116,97 +122,68 @@ blockquote {
 hr {
     border: 0;
     height: 1px;
-    background: #e1e4e8;
+    background: #eaecef;
     margin: 2em 0;
 }
+
+
+/* 目录的样式 */
+
+#toc-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    max-width: 300px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 1000;
+}
+
+#toc-container h3 {
+    margin-top: 0;
+}
+
+#toc-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+#toc-container a {
+    display: block;
+    margin: 0.5em 0;
+    font-size: 1em;
+    text-decoration: none;
+    color: #0366d6;
+}
+
+#toc-container a:hover {
+    text-decoration: underline;
+}
+
+
+/* 返回按钮 */
 
 button {
     display: block;
     margin: 20px 0;
     padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
     background-color: #0366d6;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
 }
 
 button:hover {
-    background-color: #025bb5;
-}
-
-#main-categories ul,
-#sub-list {
-    list-style: none;
-    padding: 0;
-}
-
-#main-categories li,
-#sub-list li {
-    margin: 10px 0;
-}
-
-#main-categories a,
-#sub-list a {
-    color: #0366d6;
-    text-decoration: none;
-    font-size: 1.2em;
-}
-
-#main-categories a:hover,
-#sub-list a:hover {
-    text-decoration: underline;
-}
-
-
-/* Footer Styling */
-
-footer {
-    background-color: #f1f1f1;
-    padding: 20px;
-    text-align: center;
-    border-top: 1px solid #e1e4e8;
-}
-
-footer p {
-    margin: 0;
-    color: #666;
-}
-
-footer a {
-    color: #0366d6;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-
-/* 切换效果的过渡动画 */
-
-.container {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-
-/* 隐藏和显示时的动画 */
-
-.container.hidden {
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
-.container.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-button {
-    position: relative;
-    overflow: hidden;
-    transition: background-color 0.3s, transform 0.2s;
+    background-color: #024fa4;
 }
 
 button:active {
@@ -231,20 +208,122 @@ button:active::after {
     transform: translate(-50%, -50%) scale(1);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px 0;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* 添加平滑过渡效果 */
+
+/* 返回按钮样式 */
+
+#back-button {
+    position: fixed;
+    top: 20px;
+    /* 距离顶部20px */
+    right: 20px;
+    /* 距离右侧20px */
+    background-color: #0366d6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1000;
+    /* 确保按钮在其他内容之上 */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-img:hover {
-    transform: translateY(-5px);
-    /* 图片上浮 5px */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    /* 增强阴影效果 */
+#back-button:hover {
+    background-color: #025bb5;
+}
+
+#back-button:active {
+    transform: scale(0.95);
+}
+
+#back-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#back-button:active::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#back-to-main {
+    display: block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #0366d6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+#back-to-main:hover {
+    background-color: #024fa4;
+}
+
+#back-to-main:active {
+    transform: scale(0.95);
+}
+
+#back-to-main::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#back-to-main:active::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* 页脚样式 */
+
+footer {
+    background-color: rgba(241, 241, 241, 0.8);
+    /* 半透明背景 */
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e1e4e8;
+    transition: background-color 0.3s ease;
+    /* 添加过渡效果 */
+}
+
+footer:hover {
+    background-color: rgba(241, 241, 241, 1);
+    /* 悬停时背景变为不透明 */
+}
+
+footer p {
+    margin: 0;
+    color: #666;
+}
+
+footer a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }

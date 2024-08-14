@@ -30,10 +30,12 @@ function loadMarkdown(file) {
         .then(response => response.text())
         .then(text => {
             document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            generateTOC();
             document.getElementById('directory').style.display = 'none';
             document.getElementById('markdown-content').style.display = 'block';
             document.getElementById('back-button').style.display = 'block';
             document.getElementById('back-to-main').style.display = 'none';
+            document.getElementById('toc-container').style.display = 'block';
         })
         .catch(error => {
             console.error('Error loading markdown file:', error);
@@ -79,4 +81,23 @@ document.getElementById('back-button').addEventListener('click', () => {
     document.getElementById('main-categories').style.display = 'block';
     document.getElementById('sub-categories').style.display = 'none';
     document.getElementById('back-to-main').style.display = 'none';
+    document.getElementById('toc-container').style.display = 'none';
 });
+
+// 生成目录（Table of Contents）
+function generateTOC() {
+    const tocContainer = document.getElementById('toc-container');
+    tocContainer.innerHTML = ''; // 清空旧的目录
+
+    const headings = document.querySelectorAll('#markdown-content h1, #markdown-content h2, #markdown-content h3');
+    headings.forEach(heading => {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.textContent = heading.textContent;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            heading.scrollIntoView({ behavior: 'smooth' });
+        });
+        tocContainer.appendChild(link);
+    });
+}
